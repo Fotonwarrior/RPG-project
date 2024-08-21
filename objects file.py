@@ -4,8 +4,7 @@ class creature:
         self.physiology = physiology
 
 class human(creature):
-    def __init__(self):
-        self.physiology = physiology(2,2,1)
+    self.physiology = physiology(2,2,1)
 
 class physiology:
     def __init__(self, arms, legs,heads):
@@ -17,6 +16,9 @@ class limb:
         self.name = name
         self.equiped_items = []
         self.health = 100
+
+class human(creature):
+    self.physiology = physiology(2,2,1)
 
 def initialise(name, object, number):
     output = []
