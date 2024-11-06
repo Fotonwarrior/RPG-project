@@ -1,0 +1,46 @@
+The issue you’re encountering is because the print(input.inputs) statement is executed before the user has a chance to input any data and press the submit button. To solve this, you can modify your code to wait for the user to press the submit button before proceeding. One way to achieve this is by using a callback function that gets called when the submit button is pressed.
+
+Here’s an updated version of your code:
+
+Python
+
+import tkinter as tk
+
+appname = "Capitalist Tycoon"
+
+class gui:
+    def __init__(self):
+        self.root = tk.Tk()
+        self.root.title(appname)
+        res = str(self.root.winfo_screenwidth()) + "x" + str(self.root.winfo_screenheight())
+        self.root.geometry(res)
+        self.company = None
+        self.input = entryfield(self.root, ['a', 'b', 'c'], self.process_inputs)
+        self.root.mainloop()
+
+    def process_inputs(self, inputs):
+        print(inputs)
+
+class entryfield:
+    def __init__(self, master, entries, callback):
+        self.frame = tk.Frame(master)
+        self.inputs = []
+        self.callback = callback
+        for entry in entries:
+            innerframe = tk.Frame(self.frame)
+            tk.Label(innerframe, text=f'Please enter {entry}').pack(side='left')
+            input = tk.Entry(innerframe)
+            self.inputs.append(input)
+            input.pack(side='left')
+            innerframe.pack()
+        tk.Button(self.frame, text='submit', command=self.finalize).pack()
+        self.frame.pack()
+
+    def finalize(self):
+        inputs = [entry.get() for entry in self.inputs]
+        self.callback(inputs)
+        self.frame.destroy()
+
+gui()
+Door AI gegenereerde code. Controleer en gebruik zorgvuldig. Meer informatie over veelgestelde vragen.
+In this version, the entryfield class takes an additional callback parameter, which is a function to be called when the submit button is pressed. The finalize method collects the inputs and calls the callback function with these inputs. The gui class defines the process_inputs method, which is passed as the callback to the entryfield instance. This way, the inputs are processed only after the submit button is pressed.
